@@ -47,16 +47,6 @@ class Updater:
                 break
 
 
-# async def main():
-#     executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-#     loop = asyncio.get_event_loop()
-#     async with websockets.connect(
-#             uri
-#     ) as websocket:
-#         async for message in websocket:
-#             print("A push event has occurred on GitHub")
-#             await loop.run_in_executor(executor, update)
-
 if __name__ == "__main__":
     updater = Updater()
     asyncio.get_event_loop().run_until_complete(updater.connect())
