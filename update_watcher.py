@@ -12,6 +12,7 @@ this_dir = Path(__file__).parent.resolve()
 def update():
     os.system(f"cd {this_dir}")
     os.system(f"git pull")
+    os.system(f"arduino --upload {this_dir / 'firmware.ino'}")
 
 
 class Updater:
