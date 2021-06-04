@@ -48,5 +48,6 @@ class Updater:
 
 
 if __name__ == "__main__":
+    update()        # First make sure there hasn't been an update since the script last ran
     updater = Updater()
-    asyncio.get_event_loop().run_until_complete(updater.connect())
+    asyncio.get_event_loop().run_until_complete(updater.connect())      # Update when the repo receives a push
