@@ -21,7 +21,6 @@ async def delay_update_firmware():
     asyncio.get_event_loop().close()
 
 
-@sync_to_async
 def update():
     res = subprocess.run(["git", "pull"], capture_output=True)
     if b"Already up-to-date" in res.stdout or b"Already up to date" in res.stdout:
@@ -33,12 +32,12 @@ def update():
 class Updater(BaseConsumer):
     def __init__(self):
         super().__init__()
-        if await update():
+        if update():
             exit(0)
 
     async def handle(self, message):
         print("Update notification")
-        res = await update()
+        res = sync_to_async(update)()
         if res:
             asyncio.create_task(update_firmware())
             raise ExitNicelyException("An update has been downloaded")
