@@ -10,11 +10,13 @@ this_dir = Path(__file__).parent.resolve()
 
 
 def update():
+    fqbn = "arduino:avr:nano"
+    arduino_cli = "/home/pi/.local/bin/arduino-cli"
     os.system(f"cd {this_dir}")
     os.system(f"git pull")
-    os.system(f"arduino-cli core update-index")
-    os.system(f"arduino-cli compile --fqbn arduino:avr:nano firmware")
-    # os.system(f"arduino-cli upload {this_dir / 'firmware.ino'}")
+    os.system(f"{arduino_cli} core update-index")
+    os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware")
+    os.system(f"{arduino_cli} upload -p /dev/ttyUSB0 --fqbn {fqbn} firmware")
 
 
 class Updater:
