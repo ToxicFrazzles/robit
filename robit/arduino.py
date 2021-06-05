@@ -12,7 +12,7 @@ def send_message(conn, data):
 class ArduinoConsumer(BaseConsumer):
     def __init__(self):
         super().__init__()
-        self.serial = serial.Serial("/dev/ttyUSB0", baudrate=115200)
+        self.serial = serial.Serial("/dev/ttyUSB0", baudrate=9600)
 
     async def handle(self, message: Dict):
         if message["command"] == "motors":
