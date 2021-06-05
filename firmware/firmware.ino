@@ -9,6 +9,10 @@ int rSpeed = 0;
 void setup(){
 	Serial.begin(115200);
 	pinMode(LED_BUILTIN, OUTPUT);
+	pinMode(LPWM_PIN, OUTPUT);
+	pinMode(LCONTROL_PIN, OUTPUT);
+	pinMode(RPWM_PIN, OUTPUT);
+	pinMode(RCONTROL_PIN, OUTPUT);
 }
 
 void setMotorSpeeds(){
