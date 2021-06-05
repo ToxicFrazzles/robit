@@ -4,14 +4,14 @@ import serial
 
 
 @sync_to_async
-def send_message(data):
-    return conn.write(data)
+def send_message(con, data):
+    return con.write(data)
 
 
 async def main():
-    await send_message(b"m50,50;")
+    await send_message(conn, b"m50,50;")
     await asyncio.sleep(1)
-    await send_message(b"m0,0;")
+    await send_message(conn, b"m0,0;")
 
 
 if __name__ == "__main__":
