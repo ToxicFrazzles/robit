@@ -3,6 +3,7 @@ import asyncio
 import concurrent.futures
 from pathlib import Path
 import os
+import subprocess
 import websockets.client
 import websockets.exceptions
 
@@ -12,8 +13,9 @@ this_dir = Path(__file__).parent.resolve()
 def update():
     fqbn = "arduino:avr:nano"
     arduino_cli = "/home/pi/.local/bin/arduino-cli"
-    os.system(f"cd {this_dir}")
-    os.system(f"git pull")
+    res = subprocess.run(["git", "pull"], capture_output=True)
+    if b"Already up-to-date" in res.stdout:
+        return
     os.system(f"{arduino_cli} core update-index")
     os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware")
     os.system(f"{arduino_cli} upload -p /dev/ttyUSB0 --fqbn {fqbn} firmware")
