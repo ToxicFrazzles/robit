@@ -40,13 +40,21 @@ void setMotorSpeeds(){
 	}
 }
 
+void readUntilDelimiter(){
+	char c;
+	while(true){
+		c = Serial.read();
+		if(c == ';') break;
+	}
+}
+
 void serialEvent(){
 	char ident_char = (char)Serial.read();
 	switch(ident_char){
 		case 'm':
 			lSpeed = Serial.parseInt();
 			rSpeed = Serial.parseInt();
-			Serial.read();
+			readUntilDelimiter();
 			setMotorSpeeds();
 			break;
 	}
