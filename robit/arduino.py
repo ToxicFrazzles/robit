@@ -15,6 +15,7 @@ class ArduinoConsumer(BaseConsumer):
         self.serial = serial.Serial("/dev/ttyUSB0", baudrate=9600)
 
     async def handle(self, message: Dict):
+        print(message)
         if message["command"] == "motors":
             left = message["left"]
             right = message["right"]
