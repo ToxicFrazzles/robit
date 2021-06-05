@@ -33,7 +33,7 @@ def update():
 class Updater(BaseConsumer):
     def __init__(self):
         super().__init__()
-        if update():
+        if await update():
             exit(0)
 
     async def handle(self, message):
