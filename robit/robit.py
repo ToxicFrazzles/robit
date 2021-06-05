@@ -24,8 +24,9 @@ class Robit:
         await self.arduino.handle({"command": "motors", "left": 100, "right": 100})
         await asyncio.sleep(1)
         await self.arduino.handle({"command": "motors", "left": 0, "right": 0})
-        await self.ws.connect()
-        # asyncio.create_task(self.ws.connect())
+        # await self.ws.connect()
+        asyncio.create_task(self.ws.connect())
 
     def run(self):
         asyncio.get_event_loop().run_until_complete(self._run())
+        asyncio.get_event_loop().run_forever()
