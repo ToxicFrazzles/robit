@@ -16,10 +16,11 @@ def update():
     res = subprocess.run(["git", "pull"], capture_output=True)
     if b"Already up-to-date" in res.stdout or b"Already up to date" in res.stdout:
         print("Already up-to-date")
-        return
+        return False
     os.system(f"{arduino_cli} core update-index")
     os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware")
     os.system(f"{arduino_cli} upload -p /dev/ttyUSB0 --fqbn {fqbn} firmware")
+    return True
 
 
 class Updater:
@@ -42,9 +43,10 @@ class Updater:
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         async for message in self.connection:
             print("A push event has occurred on GitHub")
-            await loop.run_in_executor(executor, update)
-            self.quitting = True
-            await self.connection.close()
+            res = await loop.run_in_executor(executor, update)
+            if res:
+                self.quitting = True
+                await self.connection.close()
 
     async def heartbeat(self):
         while True:
@@ -56,6 +58,6 @@ class Updater:
 
 
 if __name__ == "__main__":
-    update()        # First make sure there hasn't been an update since the script last ran
-    updater = Updater()
-    asyncio.get_event_loop().run_until_complete(updater.connect())      # Update when the repo receives a push
+    if not update():        # First make sure there hasn't been an update since the script last ran
+        updater = Updater()
+        asyncio.get_event_loop().run_until_complete(updater.connect())      # Update when the repo receives a push
