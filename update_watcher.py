@@ -14,7 +14,8 @@ def update():
     fqbn = "arduino:avr:nano"
     arduino_cli = "/home/pi/.local/bin/arduino-cli"
     res = subprocess.run(["git", "pull"], capture_output=True)
-    if b"Already up-to-date" in res.stdout:
+    if b"Already up-to-date" in res.stdout or b"Already up to date" in res.stdout:
+        print("Already up-to-date")
         return
     os.system(f"{arduino_cli} core update-index")
     os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware")
