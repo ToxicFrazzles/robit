@@ -18,6 +18,7 @@ def update_firmware():
 async def delay_update_firmware():
     await asyncio.sleep(5)
     await update_firmware()
+    asyncio.get_event_loop().close()
 
 
 @sync_to_async
