@@ -6,7 +6,7 @@ After=multi-user.target
 User=pi
 Group=pi
 WorkingDirectory=/home/pi/robit/
-ExecStart=/home/pi/robit/venv/bin/python /home/pi/robit/update_watcher.py
+ExecStart=/home/pi/robit/venv/bin/python /home/pi/robit/main.py
 Restart=always
 
 [Install]

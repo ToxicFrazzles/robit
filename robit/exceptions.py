@@ -1,0 +1,2 @@
+class ExitNicelyException(Exception):
+    pass
