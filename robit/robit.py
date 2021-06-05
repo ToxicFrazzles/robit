@@ -20,6 +20,7 @@ class Robit:
                 await self.ws.disconnect()
 
     async def _run(self):
+        asyncio.create_task(self.arduino.receive_messages())
         await self.arduino.handle({"command": "motors", "left": 10, "right": 10})
         await asyncio.sleep(1)
         await self.arduino.handle({"command": "motors", "left": 0, "right": 0})

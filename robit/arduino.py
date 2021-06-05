@@ -9,10 +9,25 @@ def send_message(conn, data):
     return conn.write(data)
 
 
+@sync_to_async
+def read_message(conn):
+    message = b""
+    while True:
+        char = conn.read()
+        if char == b';':
+            break
+        message += char
+    return message
+
+
 class ArduinoConsumer(BaseConsumer):
     def __init__(self):
         super().__init__()
         self.serial = serial.Serial("/dev/ttyUSB0", baudrate=9600)
+
+    async def receive_messages(self):
+        message = await read_message(self.serial)
+        print(message)
 
     async def handle(self, message: Dict):
         print(message)
