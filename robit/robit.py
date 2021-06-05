@@ -18,6 +18,8 @@ class Robit:
                 await self.updater.handle(message)
             except ExitNicelyException:
                 await self.ws.disconnect()
+        elif message["type"] == "command":
+            await self.arduino.handle(message)
 
     async def _run(self):
         asyncio.create_task(self.arduino.receive_messages())

@@ -23,7 +23,7 @@ def read_message(conn):
 class ArduinoConsumer(BaseConsumer):
     def __init__(self):
         super().__init__()
-        self.serial = serial.Serial("/dev/ttyUSB0", 9600)
+        self.serial = serial.Serial("/dev/ttyUSB0", 115200)
         while self.serial.read() != b';':
             pass
 
