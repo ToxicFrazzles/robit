@@ -24,7 +24,8 @@ class ArduinoConsumer(BaseConsumer):
     def __init__(self):
         super().__init__()
         self.serial = serial.Serial("/dev/ttyUSB0", 9600)
-        self.serial.read(2)
+        while self.serial.read() != b';':
+            pass
 
     async def receive_messages(self):
         message = await read_message(self.serial)
