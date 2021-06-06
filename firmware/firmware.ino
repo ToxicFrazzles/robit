@@ -3,8 +3,7 @@
 #define RCONTROL_PIN 7
 #define RPWM_PIN 6
 
-int lSpeed = 0;
-int rSpeed = 0;
+unsigned long lastMotorCommand = 0;
 
 void setup(){
 	Serial.begin(115200);
@@ -16,7 +15,7 @@ void setup(){
 	pinMode(RCONTROL_PIN, OUTPUT);
 }
 
-void setMotorSpeeds(){
+void setMotorSpeeds(int lSpeed, int rSpeed){
 	// Make sure the speeds are within the acceptable range
 	if(lSpeed < -255) lSpeed = -255;
 	if(lSpeed > 255) lSpeed = 255;
@@ -50,16 +49,21 @@ void readUntilDelimiter(){
 
 void serialEvent(){
 	char ident_char = (char)Serial.read();
+	int lSpeed;
+	int rSpeed;
 	switch(ident_char){
 		case 'm':
 			lSpeed = Serial.parseInt();
 			rSpeed = Serial.parseInt();
 			readUntilDelimiter();
-			setMotorSpeeds();
+			setMotorSpeeds(lSpeed, rSpeed);
+			lastMotorCommand = millis()
 			break;
 	}
 }
 
 void loop(){
-	;
+	if(millis() - lastMotorCommand > 500){
+		setMotorSpeed(0, 0);
+	}
 }
