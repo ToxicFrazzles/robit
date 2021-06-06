@@ -50,6 +50,7 @@ class Websocket:
     async def receiveMessage(self):
         try:
             async for message in self.connection:
+                print(message)
                 message_obj = json.loads(message)
                 if self.message_handler is None:
                     print(message)

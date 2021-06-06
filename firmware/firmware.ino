@@ -8,7 +8,7 @@ int rSpeed = 0;
 
 void setup(){
 	Serial.begin(115200);
-	Serial.write("Hello;");
+	Serial.write("R");
 	pinMode(LED_BUILTIN, OUTPUT);
 	pinMode(LPWM_PIN, OUTPUT);
 	pinMode(LCONTROL_PIN, OUTPUT);
