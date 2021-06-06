@@ -11,8 +11,8 @@ def update_firmware():
     fqbn = "arduino:avr:nano"
     arduino_cli = "/home/pi/.local/bin/arduino-cli"
     os.system(f"{arduino_cli} core update-index")
-    os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware")
-    os.system(f"{arduino_cli} upload -p /dev/ttyUSB0 --fqbn {fqbn} firmware")
+    os.system(f"{arduino_cli} compile --fqbn {fqbn} firmware/")
+    os.system(f"{arduino_cli} upload -p /dev/ttyUSB0 --fqbn {fqbn} firmware/")
 
 
 async def delay_update_firmware():
