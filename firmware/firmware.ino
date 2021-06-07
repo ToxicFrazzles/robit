@@ -64,6 +64,6 @@ void serialEvent(){
 
 void loop(){
 	if(millis() - lastMotorCommand > 500){
-		setMotorSpeed(0, 0);
+		setMotorSpeeds(0, 0);
 	}
 }
