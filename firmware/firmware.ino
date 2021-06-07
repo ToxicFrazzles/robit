@@ -57,7 +57,7 @@ void serialEvent(){
 			rSpeed = Serial.parseInt();
 			readUntilDelimiter();
 			setMotorSpeeds(lSpeed, rSpeed);
-			lastMotorCommand = millis()
+			lastMotorCommand = millis();
 			break;
 	}
 }
