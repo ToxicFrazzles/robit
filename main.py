@@ -12,5 +12,6 @@ if __name__ == "__main__":
         settings = json.load(f)
     url = settings.get("url", "wss://blokegaming.com/robitcontrol/robitsocket")
     key = settings["key"]
-    robit = Robit(url, key)
+    rtc_signalling_url = settings["rtc_signalling_url"]
+    robit = Robit(url, key, rtc_signalling_url)
     robit.run()

@@ -1,4 +1,5 @@
 {
   "url": "wss://blokegaming.com/robitcontrol/robitsocket/",
-  "key": "Robot key here"
+  "key": "Robot key here",
+  "rtc_signalling_url": "wss://blokegaming.com/robitcontrol/webrtcsignal/test21/"
 }

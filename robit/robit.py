@@ -2,15 +2,17 @@ from .websocket import Websocket
 from .updater import Updater
 from .arduino import ArduinoConsumer
 from .exceptions import ExitNicelyException
+from .video_stream import VideoStream
 import asyncio
 
 
 class Robit:
-    def __init__(self, ws_url, key):
+    def __init__(self, ws_url, key, rtc_signalling_url):
         self.ws = Websocket(ws_url, key)
         self.updater = Updater()
         self.ws.message_handler = self.consumer_handler
         self.arduino = ArduinoConsumer()
+        self.video_stream = VideoStream(rtc_signalling_url)
 
     async def consumer_handler(self, message):
         if message["type"] == "update":
