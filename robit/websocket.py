@@ -35,6 +35,8 @@ class Websocket:
                 self.quitting = True
             elif self.connection.close_code == 4002:
                 print("Attempted to send a message before authenticating")
+            else:
+                print("Unknown close code:", self.connection.close_code)
 
     async def authenticate(self):
         auth_payload = {
