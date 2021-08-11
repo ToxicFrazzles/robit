@@ -54,7 +54,11 @@ class Websocket:
         try:
             async for message in self.connection:
                 print(message)
-                message_obj = json.loads(message)
+                try:
+                    message_obj = json.loads(message)
+                except json.JSONDecodeError:
+                    print("[JSON ERROR]:", message)
+                    continue
                 if self.message_handler is None:
                     print(message)
                 else:
