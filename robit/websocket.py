@@ -18,12 +18,12 @@ class Websocket:
     async def connect(self):
         while not self.quitting:
             self.connection = await websockets.client.connect(self.ws_url)
-            print("Connected")
+            print("Control socket connected")
             self.receiveTask = asyncio.create_task(self.receiveMessage())
             self.heartbeatTask = asyncio.create_task(self.heartbeat())
             await self.authenticate()
             await self.connection.wait_closed()
-            print("Disconnected")
+            print("Control socket disconnected")
 
             if self.connection.close_code == 1008:
                 print("Key is wrong length maybe?")
@@ -39,6 +39,7 @@ class Websocket:
                 print("Unknown close code:", self.connection.close_code)
 
     async def authenticate(self):
+        print("Authenticating with control socket")
         auth_payload = {
             "type": "auth",
             "key": self.key
