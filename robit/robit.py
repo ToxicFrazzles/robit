@@ -15,7 +15,6 @@ class Robit:
         self.video_stream = VideoStream(rtc_signalling_token)
 
     async def consumer_handler(self, message):
-        print(message)
         if message["type"] == "update":
             try:
                 await self.updater.handle(message)
