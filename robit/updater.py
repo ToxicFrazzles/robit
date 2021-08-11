@@ -37,8 +37,8 @@ class Updater(BaseConsumer):
 
     async def handle(self, message):
         print("Update notification")
-        exit(0)
         res = sync_to_async(update)()
+        exit(0)
         if res:
             asyncio.create_task(update_firmware())
             raise ExitNicelyException("An update has been downloaded")
