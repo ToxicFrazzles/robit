@@ -7,12 +7,12 @@ import asyncio
 
 
 class Robit:
-    def __init__(self, ws_url, key, rtc_signalling_url):
+    def __init__(self, ws_url, key, rtc_signalling_token):
         self.ws = Websocket(ws_url, key)
         self.updater = Updater()
         self.ws.message_handler = self.consumer_handler
         self.arduino = ArduinoConsumer()
-        self.video_stream = VideoStream(rtc_signalling_url)
+        self.video_stream = VideoStream(rtc_signalling_token)
 
     async def consumer_handler(self, message):
         if message["type"] == "update":

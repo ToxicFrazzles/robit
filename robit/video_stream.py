@@ -13,8 +13,8 @@ except (ImportError, ModuleNotFoundError):
 
 
 class VideoStream:
-    def __init__(self, signalling_url: str, stun_servers: List[str] = None):
-        self.signalling_url = signalling_url
+    def __init__(self, signalling_token: str, stun_servers: List[str] = None):
+        self.signalling_url = f"wss://blokegaming.com/robitcontrol/webrtcsignal/{signalling_token}/"
         if stun_servers is None:
             self.stun_servers = [RTCIceServer("stun:stun.blokegaming.com")]
 
@@ -124,5 +124,5 @@ class VideoStream:
 
 
 if __name__ == "__main__":
-    stream = VideoStream("wss://blokegaming.com/robitcontrol/webrtcsignal/test21/")
+    stream = VideoStream("test21")
     asyncio.get_event_loop().run_forever()
