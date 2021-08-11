@@ -6,7 +6,7 @@ from typing import List, Union, Dict, Callable, Coroutine
 
 try:
     import picamera
-    camera = rtcbot.PiCamera(1920, 1080)
+    camera = rtcbot.PiCamera(1920, 1088)
 except (ImportError, ModuleNotFoundError):
     print("Falling back on CVCamera")
     camera = rtcbot.CVCamera(1920, 1080)
