@@ -37,6 +37,7 @@ class Updater(BaseConsumer):
 
     async def handle(self, message):
         print("Update notification")
+        exit(0)
         res = sync_to_async(update)()
         if res:
             asyncio.create_task(update_firmware())
