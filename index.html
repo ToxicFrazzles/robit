@@ -8,8 +8,10 @@
 <video playsinline autoplay></video>
 <script type="text/javascript">
     const urlParams = new URLSearchParams(window.location.search);
-    if(urlParams.has("t")) {
+    if(urlParams.has("t") && urlParams.has("bt") && urlParams.has("bk")) {
         const ws_url = `wss://blokegaming.com/robitcontrol/webrtcsignal/${urlParams.get("t")}/`;
+        const token = urlParams.get("bt");
+        const key = urlParams.get("bk");
         const config = {iceServers: [{urls: 'stun:stun.blokegaming.com'}]};
         const video = document.querySelector("video");
         var pc = null;
@@ -89,6 +91,13 @@
             ws.onopen = function () {
                 console.log("Open!")
                 ws_connected = true;
+
+                ws.send(JSON.stringify({
+                    type: "auth_browser",
+                    token: token,
+                    key: key
+                }));
+
                 ws.send('{"type": "info", "message": "Peer Connected"}');
                 ws_errors = 0;
             };
