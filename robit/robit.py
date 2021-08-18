@@ -12,7 +12,7 @@ class Robit:
         self.updater = Updater()
         self.ws.message_handler = self.consumer_handler
         self.arduino = ArduinoConsumer()
-        self.video_stream = VideoStream(rtc_signalling_token)
+        self.video_stream = VideoStream(rtc_signalling_token, key)
 
     async def consumer_handler(self, message):
         if message["type"] == "update":

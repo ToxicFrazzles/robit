@@ -13,7 +13,7 @@ except (ImportError, ModuleNotFoundError):
 
 
 class VideoStream:
-    def __init__(self, signalling_token: str, stun_servers: List[str] = None):
+    def __init__(self, signalling_token: str, signalling_key: str, stun_servers: List[str] = None):
         self.signalling_url = f"wss://blokegaming.com/robitcontrol/webrtcsignal/{signalling_token}/"
         if stun_servers is None:
             self.stun_servers = [RTCIceServer("stun:stun.blokegaming.com")]
@@ -22,6 +22,7 @@ class VideoStream:
 
         self.i = 0
 
+        self.signalling_key = signalling_key
         self.ws_connected = False
         self.rtc_connected = False
         self.websocket_connect()
@@ -47,6 +48,10 @@ class VideoStream:
     async def websocket_ready(self):
         if not self.ws_connected and self.ws.ready:
             print("RTC signalling websocket ready")
+            self.ws.put_nowait({
+                "type": "auth_robit",
+                "key": self.signalling_key
+            })
             self.ws.put_nowait({
                 "type": "info",
                 "message": "Robit Connected"
